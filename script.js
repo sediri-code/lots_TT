@@ -25,8 +25,8 @@ document.getElementById("insertButton").addEventListener("click", function() {
     cell1.innerHTML = entreprise;
     cell2.innerHTML = htva;
     cell3.innerHTML = classement;
-    cell4.innerHTML = '<button class="deleteButton">Delete</button>';
-    cell5.innerHTML = '<button class="editButton">Edit</button>';
+    cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
+    cell5.innerHTML = '<button class="editButton">Modifier</button>';
   
     attachDeleteEvent();
     attachEditEvent();
@@ -66,6 +66,23 @@ document.getElementById("insertButton").addEventListener("click", function() {
       });
     }
   }
+
+  document.getElementById("averageButton").addEventListener("click", function() {
+    var rows = document.getElementById("lotTable").rows;
+    var sum = 0;
+    
+    for (var i = 1; i < rows.length; i++) {
+      var htva = parseFloat(rows[i].cells[1].innerHTML);
+      
+      if (!isNaN(htva)) {
+        sum += htva;
+      }
+    }
+    
+    var average = sum / (rows.length - 1);
+    alert("Average HTVA: " + average.toFixed(2));
+  });
+  
   
   attachDeleteEvent();
   attachEditEvent();
