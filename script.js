@@ -129,26 +129,22 @@ function attachAddEvent(lotCount) {
   var addButton = document.getElementById("addButton" + lotCount);
   addButton.addEventListener("click", function() {
     var lotTable = document.getElementById("lotTable" + lotCount);
-    var newRow = lotTable.insertRow();
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
-    var cell4 = newRow.insertCell(3);
-    var cell5 = newRow.insertCell(4);
+    var clonedForm = document.getElementById("lotForm").cloneNode(true);
 
-    cell1.innerHTML = document.getElementById("entrepriseInput").value;
-    cell2.innerHTML = document.getElementById("htvaInput").value;
-    cell3.innerHTML = document.getElementById("classementInput").value;
-    cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-    cell5.innerHTML = '<button class="editButton">Modifier</button>';
+    // Modifier l'id du formulaire cloné pour le différencier des éléments existants
+    var newFormId = "lotForm" + lotCount;
+    clonedForm.setAttribute("id", newFormId);
 
-    attachDeleteEvent();
-    attachEditEvent();
+    // Réinitialiser les champs de saisie du formulaire cloné
+    clonedForm.querySelector("#entrepriseInput").value = "";
+    clonedForm.querySelector("#htvaInput").value = "";
+    clonedForm.querySelector("#classementInput").value = "";
 
-    document.getElementById("entrepriseInput").value = "";
-    document.getElementById("htvaInput").value = "";
-    document.getElementById("classementInput").value = "";
-    document.getElementById("lotForm").style.display = "none";
+    // Ajouter le formulaire cloné avant le tableau du lot
+    lotTable.parentNode.insertBefore(clonedForm, lotTable);
+
+    // Afficher le formulaire cloné
+    clonedForm.style.display = "block";
   });
 }
 
