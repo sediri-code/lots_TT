@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lot Management</title>
+  <title>Tunisie Telecom</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div id="interface1">
-    <h1>Welcome to Lot Management</h1>
+    <h1>Bienvenue !</h1>
     <button id="insertButton">Insérer les données des lots</button>
   </div>
 
   <div id="interface2" style="display: none;">
-    <h2>Lot Management</h2>
+    <h2 id="lotNumber">Lot numéro 1</h2>
     <table id="lotTable">
       <tr>
         <th>Entreprise</th>
-        <th>HTVA</th>
+        <th>Montant HTVA</th>
         <th>Classement</th>
       </tr>
     </table>
     <br>
-    <button id="addButton">Ajouter lot</button>
+    <button id="addButton">Ajouter une Entreprise</button>
+    <button id="averageButton">Calculer la moyenne des offres</button>
+    <button id="addLotButton">Ajouter un autre lot</button>
   </div>
 
   <div id="lotForm" style="display: none;">
-    <h3>Ajouter un lot</h3>
+    <h3>Ajouter une Entreprise</h3>
     <form id="addForm">
       <label for="entrepriseInput">Entreprise:</label>
       <input type="text" id="entrepriseInput" required><br>
