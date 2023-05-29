@@ -13,29 +13,44 @@ document.getElementById("addForm").addEventListener("submit", function(e) {
   var entreprise = document.getElementById("entrepriseInput").value;
   var htva = document.getElementById("htvaInput").value;
   var classement = document.getElementById("classementInput").value;
+  var rowIndex = parseInt(this.getAttribute("data-row-index"));
 
-  var lotTable = document.getElementById("lotTable" + lotCount);
-  
-  var cell1 = newRow.insertCell(0);
-  var cell2 = newRow.insertCell(1);
-  var cell3 = newRow.insertCell(2);
-  var cell4 = newRow.insertCell(3);
-  var cell5 = newRow.insertCell(4);
+  if (rowIndex) {
+    // If rowIndex exists, update the existing row
+    var lotTable = document.getElementById("lotTable" + lotCount);
+    var row = lotTable.rows[rowIndex];
+    var cells = row.cells;
 
+    cells[0].innerHTML = entreprise;
+    cells[1].innerHTML = htva;
+    cells[2].innerHTML = classement;
+  } else {
+    // If rowIndex doesn't exist, add a new row
+    var lotTable = document.getElementById("lotTable" + lotCount);
+    var newRow = lotTable.insertRow();
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+    var cell4 = newRow.insertCell(3);
+    var cell5 = newRow.insertCell(4);
 
-  cell1.innerHTML = entreprise;
-  cell2.innerHTML = htva;
-  cell3.innerHTML = classement;
-  cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-  cell5.innerHTML = '<button class="editButton">Modifier</button>';
-  
+    cell1.innerHTML = entreprise;
+    cell2.innerHTML = htva;
+    cell3.innerHTML = classement;
+    cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
+    cell5.innerHTML = '<button class="editButton">Modifier</button>';
 
-  attachDeleteEvent();
-  attachEditEvent();
+    attachDeleteEvent();
+    attachEditEvent();
+  }
 
   document.getElementById("entrepriseInput").value = "";
   document.getElementById("htvaInput").value = "";
   document.getElementById("classementInput").value = "";
+  document.getElementById("lotForm").style.display = "none";
+
+  // Reset the form's data-row-index attribute
+  document.getElementById("addForm").removeAttribute("data-row-index");
 });
 
 function attachDeleteEvent() {
@@ -58,10 +73,14 @@ function attachEditEvent() {
     editButtons[i].addEventListener("click", function() {
       var row = this.parentNode.parentNode;
       var cells = row.cells;
+      var rowIndex = row.rowIndex;
 
       document.getElementById("entrepriseInput").value = cells[0].innerHTML;
       document.getElementById("htvaInput").value = cells[1].innerHTML;
       document.getElementById("classementInput").value = cells[2].innerHTML;
+
+      // Store the row index as a data attribute in the form
+      document.getElementById("addForm").setAttribute("data-row-index", rowIndex);
 
       document.getElementById("lotForm").style.display = "block";
     });
