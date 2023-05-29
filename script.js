@@ -15,18 +15,20 @@ document.getElementById("addForm").addEventListener("submit", function(e) {
   var classement = document.getElementById("classementInput").value;
 
   var lotTable = document.getElementById("lotTable" + lotCount);
-  var newRow = lotTable.insertRow();
+  
   var cell1 = newRow.insertCell(0);
   var cell2 = newRow.insertCell(1);
   var cell3 = newRow.insertCell(2);
   var cell4 = newRow.insertCell(3);
   var cell5 = newRow.insertCell(4);
 
+
   cell1.innerHTML = entreprise;
   cell2.innerHTML = htva;
   cell3.innerHTML = classement;
   cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
   cell5.innerHTML = '<button class="editButton">Modifier</button>';
+  
 
   attachDeleteEvent();
   attachEditEvent();
