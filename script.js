@@ -148,7 +148,7 @@ document.getElementById("addLotButton").addEventListener("click", function() {
 function attachAddEvent(lotCount) {
   var addButton = document.getElementById("addButton" + lotCount);
   addButton.addEventListener("click", function() {
-    var lotTable = document.getElementById("lotTable" + lotCount);
+    var lotTable = document.getElementById("lotTable1"); // Get Lot Number 1 table
     var newRow = lotTable.insertRow();
     var cell1 = newRow.insertCell(0);
     var cell2 = newRow.insertCell(1);
@@ -172,6 +172,10 @@ function attachAddEvent(lotCount) {
   });
 }
 
+
+
+
+
 function attachAverageEvent(lotCount) {
   var averageButton = document.getElementById("averageButton" + lotCount);
   averageButton.addEventListener("click", function() {
@@ -194,3 +198,4 @@ function attachAverageEvent(lotCount) {
 
 attachDeleteEvent();
 attachEditEvent();
+
