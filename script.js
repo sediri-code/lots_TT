@@ -194,4 +194,3 @@ function attachAverageEvent(lotCount) {
 
 attachDeleteEvent();
 attachEditEvent();
-
