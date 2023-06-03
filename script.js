@@ -66,21 +66,18 @@ document.getElementById("averageButton").addEventListener("click", function() {
 
 document.getElementById("addLotButton").addEventListener("click", function() {
   var lotCount = document.getElementsByClassName("lotTable").length;
-  var newLotNumber = lotCount + 1;
+  var newLotNumber = lotCount + 2;
 
-var lotNumberHeading = document.getElementById("lotNumber");
-var newLotHeading = document.createElement("h2");
-newLotHeading.id = "lotNumber" + newLotNumber;
-newLotHeading.innerText = "Lot numéro " + newLotNumber;
-lotNumberHeading.parentNode.insertBefore(newLotHeading, lotNumberHeading.nextSibling);
-
+  var lotNumberHeading = document.createElement("h2");
+  lotNumberHeading.innerHTML = "Lot numéro " + newLotNumber;
 
   var newLotTable = document.createElement("table");
-  newLotTable.id = "lotTable" + newLotNumber;
+  newLotTable.className = "lotTable";
   newLotTable.innerHTML = '<tr><th>Entreprise</th><th>Montant HTVA</th><th>Classement</th><th>Actions</th></tr>';
 
-  var addButton = document.getElementById("addButton");
-  addButton.parentNode.insertBefore(newLotTable, addButton);
+  var interface2 = document.getElementById("interface2");
+  interface2.appendChild(lotNumberHeading);
+  interface2.appendChild(newLotTable);
 
   attachDeleteEvent();
 });
