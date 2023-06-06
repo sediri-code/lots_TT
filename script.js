@@ -1,5 +1,5 @@
 let tableIndex = 1;
-let isFirstTable = true;
+let isFirstTable = false;
 
 function goToPage2() {
   document.getElementById("page1").style.display = "none";
@@ -73,6 +73,24 @@ function addTable() {
       <tbody></tbody>
     `;
   }
+  
+  table.id = `data-table-${newTableIndex}`;
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `
+    <th>Entreprise</th>
+    <th>Montant HTVA</th>
+    <th>Classement</th>
+    <th>Action</th>
+  `;
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  table.appendChild(tbody);
+
+  tableContainer.appendChild(table);
 
   
   tableContainer.appendChild(table);
