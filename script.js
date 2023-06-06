@@ -1,136 +1,123 @@
-window.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("insertButton").addEventListener("click", function() {
-    document.getElementById("interface1").style.display = "none";
-    document.getElementById("interface2").style.display = "block";
-  });
+let tableIndex = 1;
+let isFirstTable = false;
 
-  document.getElementById("addButton").addEventListener("click", function() {
-    document.getElementById("lotForm").style.display = "block";
-  });
+function goToPage2() {
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+  addTable();
+}
 
-  document.getElementById("addForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+function addRow(tableId) {
+  const table = document.getElementById(tableId);
+  const row = table.insertRow();
+  row.innerHTML = `
+    <td><input type="text" name="entreprise_${tableIndex}"></td>
+    <td><input type="number" name="montant_${tableIndex}"></td>
+    <td><input type="text" name="classement_${tableIndex}"></td>
+    <td>
+      <button onclick="modifyRow(this)">Modifier</button>
+      <button onclick="deleteRow(this)">Supprimer</button>
+    </td>
+  `;
+  tableIndex++;
+}
 
-    var entreprise = document.getElementById("entrepriseInput").value;
-    var htva = document.getElementById("htvaInput").value;
-    var classement = document.getElementById("classementInput").value;
+function calculateAverage(tableId) {
+  const table = document.getElementById(tableId);
+  const rows = table.getElementsByTagName("tr");
+  let total = 0;
+  let count = 0;
 
-    var lotTable = document.querySelector("#interface2 table:last-of-type");
-
-    var newRow = lotTable.insertRow();
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
-    var cell4 = newRow.insertCell(3);
-
-    cell1.innerHTML = entreprise;
-    cell2.innerHTML = htva;
-    cell3.innerHTML = classement;
-    cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-
-    attachDeleteEvent();
-
-    document.getElementById("entrepriseInput").value = "";
-    document.getElementById("htvaInput").value = "";
-    document.getElementById("classementInput").value = "";
-    document.getElementById("lotForm").style.display = "none";
-  });
-
-  function attachDeleteEvent() {
-    var deleteButtons = document.getElementsByClassName("deleteButton");
-
-    for (var i = 0; i < deleteButtons.length; i++) {
-      deleteButtons[i].addEventListener("click", function() {
-        var row = this.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-      });
-    }
-  }
-
-  function attachAddEntrepriseEvent() {
-    var addButtons = document.getElementsByClassName("addButton");
-
-    for (var i = 0; i < addButtons.length; i++) {
-      addButtons[i].addEventListener("click", function() {
-        var lotDiv = this.parentNode.parentNode;
-        var lotTable = lotDiv.querySelector("table");
-        var newRow = lotTable.insertRow();
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
-
-        var entrepriseInput = lotDiv.querySelector(".entrepriseInput");
-        var htvaInput = lotDiv.querySelector(".htvaInput");
-        var classementInput = lotDiv.querySelector(".classementInput");
-
-        cell1.innerHTML = entrepriseInput.value;
-        cell2.innerHTML = htvaInput.value;
-        cell3.innerHTML = classementInput.value;
-        cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-
-        attachDeleteEvent();
-
-        // Reset the input fields
-        entrepriseInput.value = "";
-        htvaInput.value = "";
-        classementInput.value = "";
-      });
-    }
-  }
-
-  document.getElementById("averageButton").addEventListener("click", function() {
-    var lotCount = document.getElementsByClassName("lotTable").length;
-    var totalHTVA = 0;
-
-    for (var i = 1; i <= lotCount; i++) {
-      var lotTable = document.getElementById("lotTable" + i);
-      var rows = lotTable.getElementsByTagName("tr");
-
-      for (var j = 1; j < rows.length; j++) {
-        var htva = parseFloat(rows[j].cells[1].innerHTML);
-        totalHTVA += htva;
+  // Skip the first row (table header)
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    if (cells.length >= 2) {
+      const montantInput = cells[1].querySelector("input[name^='montant_']");
+      if (montantInput && montantInput.value !== "") {
+        total += parseFloat(montantInput.value);
+        count++;
       }
     }
+  }
 
-    var averageHTVA = totalHTVA / (lotCount > 0 ? lotCount : 1);
-    alert("La moyenne des offres HTVA est de: " + averageHTVA.toFixed(2));
-  });
+  if (count > 0) {
+    const average = total / count;
+    alert(`La moyenne des montants HTVA dans cette table est: ${average}`);
+  } else {
+    alert("Aucun montant HTVA n'a été saisi dans cette table.");
+  }
+}
 
-  document.getElementById("addLotButton").addEventListener("click", function() {
-    var lotCount = document.getElementsByClassName("lotTable").length;
-    var newLotNumber = lotCount + 2;
 
-    var lotNumberHeading = document.createElement("h2");
-    lotNumberHeading.innerHTML = "Lot numéro " + newLotNumber;
+function addTable() {
+  const tableContainer = document.getElementById("table-container");
+  const table = document.createElement("table");
+  const newTableIndex = tableIndex;
+  table.id = `data-table-${newTableIndex}`;
 
-    var newLotDiv = document.createElement("div");
-    newLotDiv.className = "lotDiv";
-    newLotDiv.innerHTML = `
-      <table id="lotTable${newLotNumber}" class="lotTable">
-        <tr>
-          <th>Entreprise</th>
-          <th>Montant HTVA</th>
-          <th>Classement</th>
-          <th>Actions</th>
-        </tr>
-      </table>
-      <div>
-        <h3>Ajouter une entreprise</h3>
-        <input type="text" class="entrepriseInput" placeholder="Entreprise" required>
-        <input type="number" class="htvaInput" placeholder="Montant HTVA" required>
-        <input type="text" class="classementInput" placeholder="Classement" required>
-        <button class="addButton">Ajouter</button>
-      </div>
-    `;
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `
+    <th>Entreprise</th>
+    <th>Montant HTVA</th>
+    <th>Classement</th>
+    <th>Action</th>
+  `;
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
 
-    var interface2 = document.getElementById("interface2");
-    interface2.appendChild(lotNumberHeading);
-    interface2.appendChild(newLotDiv);
+  const tbody = document.createElement("tbody");
+  table.appendChild(tbody);
 
-    attachDeleteEvent();
-    attachAddEntrepriseEvent();
-  });
+  tableContainer.appendChild(table);
 
-});
+  const tableHeading = document.createElement("h1");
+  tableHeading.textContent = `Lot numéro ${newTableIndex}`;
+  tableContainer.insertBefore(tableHeading, table);
 
+  const addRowButton = document.createElement("button");
+  addRowButton.innerHTML = "Ajouter une Entreprise";
+  addRowButton.onclick = function() {
+    addRow(`data-table-${newTableIndex}`);
+  };
+  tableContainer.appendChild(addRowButton);
+
+  const calculateAverageButton = document.createElement("button");
+  calculateAverageButton.innerHTML = "Calculer la moyenne";
+  calculateAverageButton.onclick = function() {
+    calculateAverage(`data-table-${newTableIndex}`);
+  };
+  tableContainer.appendChild(calculateAverageButton);
+
+  addRow(`data-table-${newTableIndex}`);
+}
+
+
+function modifyRow(button) {
+  const row = button.parentNode.parentNode;
+  const inputs = row.getElementsByTagName("input");
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].removeAttribute("readonly");
+  }
+  button.innerHTML = "Sauvegarder";
+  button.onclick = function() {
+    saveRow(this);
+  };
+}
+
+function saveRow(button) {
+  const row = button.parentNode.parentNode;
+  const inputs = row.getElementsByTagName("input");
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].setAttribute("readonly", true);
+  }
+  button.innerHTML = "Modifier";
+  button.onclick = function() {
+    modifyRow(this);
+  };
+}
+
+function deleteRow(button) {
+  const row = button.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
