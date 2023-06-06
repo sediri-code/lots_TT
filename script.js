@@ -22,6 +22,33 @@ function addRow(tableId) {
   tableIndex++;
 }
 
+function calculateAverage(tableId) {
+  const table = document.getElementById(tableId);
+  const rows = table.getElementsByTagName("tr");
+  let total = 0;
+  let count = 0;
+
+  // Skip the first row (table header)
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    if (cells.length >= 2) {
+      const montantInput = cells[1].querySelector("input[name^='montant_']");
+      if (montantInput && montantInput.value !== "") {
+        total += parseFloat(montantInput.value);
+        count++;
+      }
+    }
+  }
+
+  if (count > 0) {
+    const average = total / count;
+    alert(`La moyenne des montants HTVA dans cette table est: ${average}`);
+  } else {
+    alert("Aucun montant HTVA n'a été saisi dans cette table.");
+  }
+}
+
+
 function addTable() {
   const tableContainer = document.getElementById("table-container");
   const table = document.createElement("table");
@@ -47,15 +74,24 @@ function addTable() {
     `;
   }
 
+  
   tableContainer.appendChild(table);
   const addRowButton = document.createElement("button");
-  addRowButton.innerHTML = "Ajouter une ligne";
+  addRowButton.innerHTML = "Ajouter une Entreprise";
   addRowButton.onclick = function() {
     addRow(`data-table-${newTableIndex}`);
   };
 
   tableContainer.appendChild(addRowButton);
   addRow(`data-table-${newTableIndex}`);
+
+
+ const calculateAverageButton = document.createElement("button");
+  calculateAverageButton.innerHTML = "Calculer la moyenne";
+  calculateAverageButton.onclick = function() {
+    calculateAverage(`data-table-${newTableIndex}`);
+    };  
+  tableContainer.appendChild(calculateAverageButton);
 }
 
 function modifyRow(button) {
