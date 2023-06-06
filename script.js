@@ -55,27 +55,6 @@ function addTable() {
   const newTableIndex = tableIndex;
   table.id = `data-table-${newTableIndex}`;
 
-  if (isFirstTable) {
-    table.innerHTML = `
-      <thead>
-        <tr>
-          <th>Entreprise</th>
-          <th>Montant HTVA</th>
-          <th>Classement</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    `;
-    isFirstTable = false;
-  } else {
-    table.innerHTML = `
-      <tbody></tbody>
-    `;
-  }
-  
-  table.id = `data-table-${newTableIndex}`;
-
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
   headerRow.innerHTML = `
@@ -92,25 +71,27 @@ function addTable() {
 
   tableContainer.appendChild(table);
 
-  
-  tableContainer.appendChild(table);
+  const tableHeading = document.createElement("h1");
+  tableHeading.textContent = `Lot numéro ${newTableIndex}`;
+  tableContainer.insertBefore(tableHeading, table);
+
   const addRowButton = document.createElement("button");
   addRowButton.innerHTML = "Ajouter une Entreprise";
   addRowButton.onclick = function() {
     addRow(`data-table-${newTableIndex}`);
   };
-
   tableContainer.appendChild(addRowButton);
-  addRow(`data-table-${newTableIndex}`);
 
-
- const calculateAverageButton = document.createElement("button");
+  const calculateAverageButton = document.createElement("button");
   calculateAverageButton.innerHTML = "Calculer la moyenne";
   calculateAverageButton.onclick = function() {
     calculateAverage(`data-table-${newTableIndex}`);
-    };  
+  };
   tableContainer.appendChild(calculateAverageButton);
+
+  addRow(`data-table-${newTableIndex}`);
 }
+
 
 function modifyRow(button) {
   const row = button.parentNode.parentNode;
