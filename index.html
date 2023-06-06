@@ -3,6 +3,7 @@
 <head>
   <title>Tunisie Telecom</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  
 </head>
 <body>
   <div id="interface1">
@@ -23,9 +24,17 @@
     <br>
     <button id="addButton">Ajouter une Entreprise</button>
     <button id="averageButton">Calculer la moyenne des offres</button>
-    <button id="addLotButton">Ajouter un autre lot</button>
+     <button id="addLotButton">Ajouter un autre lot</button>
+
+  <style>
+    /* Add custom styles for positioning the button */
+    #addLotButton {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
   </div>
-  
 
   <div id="lotForm" style="display: none;">
     <h3>Ajouter une Entreprise</h3>
@@ -43,7 +52,10 @@
     </form>
   </div>
 
+
+
   <script src="script.js"></script>
 </body>
 </html>
+
 
