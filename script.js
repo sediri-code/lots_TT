@@ -1,5 +1,4 @@
 let tableIndex = 1;
-let isFirstTable = false;
 
 function goToPage2() {
   document.getElementById("page1").style.display = "none";
@@ -48,7 +47,6 @@ function calculateAverage(tableId) {
   }
 }
 
-
 function addTable() {
   const tableContainer = document.getElementById("table-container");
   const table = document.createElement("table");
@@ -77,21 +75,20 @@ function addTable() {
 
   const addRowButton = document.createElement("button");
   addRowButton.innerHTML = "Ajouter une Entreprise";
-  addRowButton.onclick = function() {
+  addRowButton.onclick = function () {
     addRow(`data-table-${newTableIndex}`);
   };
   tableContainer.appendChild(addRowButton);
 
   const calculateAverageButton = document.createElement("button");
   calculateAverageButton.innerHTML = "Calculer la moyenne";
-  calculateAverageButton.onclick = function() {
+  calculateAverageButton.onclick = function () {
     calculateAverage(`data-table-${newTableIndex}`);
   };
   tableContainer.appendChild(calculateAverageButton);
 
   addRow(`data-table-${newTableIndex}`);
 }
-
 
 function modifyRow(button) {
   const row = button.parentNode.parentNode;
@@ -100,7 +97,7 @@ function modifyRow(button) {
     inputs[i].removeAttribute("readonly");
   }
   button.innerHTML = "Sauvegarder";
-  button.onclick = function() {
+  button.onclick = function () {
     saveRow(this);
   };
 }
@@ -112,7 +109,7 @@ function saveRow(button) {
     inputs[i].setAttribute("readonly", true);
   }
   button.innerHTML = "Modifier";
-  button.onclick = function() {
+  button.onclick = function () {
     modifyRow(this);
   };
 }
@@ -121,3 +118,70 @@ function deleteRow(button) {
   const row = button.parentNode.parentNode;
   row.parentNode.removeChild(row);
 }
+
+function generateBestScenario() {
+  document.getElementById("page2").style.display = "none";
+  document.getElementById("page3").style.display = "block";
+  const scenarioTableContainer = document.getElementById("scenario-table-container");
+  scenarioTableContainer.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>N° du lot</th>
+          <th>Entreprises</th>
+          <th>Mt HTVA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lot n°1</td>
+          <td>Olive</td>
+          <td>200 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°2</td>
+          <td>Pepper Event</td>
+          <td>211 200,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°3</td>
+          <td>Pepper Events</td>
+          <td>67 250,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°4</td>
+          <td>Tulip Event</td>
+          <td>96 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°5</td>
+          <td>Tulip Event</td>
+          <td>70 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°6</td>
+          <td>Prod'un jour</td>
+          <td>81 600,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°7</td>
+          <td>Olive</td>
+          <td>80 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°8</td>
+          <td>Prod'un jour</td>
+          <td>101 200,000</td>
+        </tr>
+        <tr>
+          <td>TOTAL HTVA</td>
+          <td></td>
+          <td>907 250,000</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+
+
