@@ -5,45 +5,30 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div id="interface1">
-    <h1>Bienvenue !</h1>
-    <button id="insertButton">Insérer les données des lots</button>
+  <div id="page1">
+    <h1>Bienvenue</h1>
+    <button onclick="goToPage2()">Inserer les données</button>
   </div>
 
-  <div id="interface2" style="display: none;">
-    <h2><span id="lotNumber">Lot numéro 1 </span></h2>
-    <table id="lotTable">
-      <tr>
-        <th>Entreprise</th>
-        <th>Montant HTVA</th>
-        <th>Classement</th>
-        <th>Actions</th>
-      </tr>
-    </table>
-    <br>
-    <button id="addButton">Ajouter une Entreprise</button>
-    <button id="averageButton">Calculer la moyenne des offres</button>
-    <button id="addLotButton">Ajouter un autre lot</button>
+  <div id="page2" style="display: none;">
+    
+    <div id="table-container">
+      
+        <thead>
+          <tr>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      
+    </div>
+    <button onclick="addTable()">Ajouter un autre lot</button>
+    
   </div>
-  
-
-  <div id="lotForm" style="display: none;">
-    <h3>Ajouter une Entreprise</h3>
-    <form id="addForm">
-      <label for="entrepriseInput">Entreprise:</label>
-      <input type="text" id="entrepriseInput" required><br>
-
-      <label for="htvaInput">HTVA:</label>
-      <input type="number" id="htvaInput" required><br>
-
-      <label for="classementInput">Classement:</label>
-      <input type="text" id="classementInput" required><br>
-
-      <input type="submit" value="Ajouter">
-    </form>
-  </div>
-
+    
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
 

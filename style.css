@@ -1,37 +1,74 @@
+/* Body Styles */
 body {
-    background: linear-gradient(135deg, #2980b9, #6dd5fa);
-    font-family: Arial, sans-serif;
-  }
-  
-  h1, h2, h3 {
-    color: white;
-  }
-  
-  #interface1 {
-    text-align: center;
-    margin-top: 150px;
-  }
-  
-  #interface2 {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  table {
-    margin: 0 auto;
-    border-collapse: collapse;
-    width: 70%;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid white;
-  }
-  
-  #lotForm {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #87CEEB; /* Sky blue background color */
+  margin: 0;
+  padding: 0;
+}
+
+/* Page Styles */
+#page1, #page2 {
+  padding: 20px;
+  text-align: center;
+}
+
+#page2 {
+  display: none;
+}
+
+/* Table Styles */
+#table-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  background-color: #f5f5f5;
+}
+
+button {
+  margin-top: 10px;
+  margin-right: 10px; /* Add right margin for spacing */
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #008CBA; /* Blue button color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#table-container button:last-child {
+  margin-right: 0; /* Remove right margin for the last button */
+}
+
+
+button:hover {
+  background-color: #0077B3; /* Darker blue hover color */
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
   
