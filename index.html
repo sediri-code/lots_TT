@@ -5,11 +5,15 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div id="page1">
-    <h1>Bienvenue</h1>
-    <button onclick="goToPage2()">Insérer les données</button>
-  </div>
 
+  <div id="page1">
+    <div class="container">
+      <h1>Bienvenue</h1>
+      <button onclick="goToPage2()">Insérer les données</button>
+    </div>
+    <img src="https://www.jawharafm.net/fr/imageResize/resize/francais_image2_35665_1458124719.png" alt="Image description">
+  </div>
+  
   <div id="page2" style="display: none;">
     <div id="table-container">
       <thead>
@@ -20,22 +24,22 @@
     </div>
     <button onclick="addTable()">Ajouter un autre lot</button>
     <button onclick="generateBestScenario()">Générer le meilleur scénario</button>
-    
+
   </div>
 
   <div id="page3" style="display: none;">
+    <h1 class="centered-heading">Le Scénario retenu:</h1>
     <div id="scenario-table-container">
       <!-- The generated scenario table will be inserted here -->
     </div>
-    <h1 class="centered-heading">Le Scénario retenu est le Scénario 7</h1>
-    
-    
+
   </div>
 
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
