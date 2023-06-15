@@ -1,178 +1,192 @@
-document.getElementById("insertButton").addEventListener("click", function() {
-  document.getElementById("interface1").style.display = "none";
-  document.getElementById("interface2").style.display = "block";
-});
+let tableIndex = 1;
 
-document.getElementById("addButton").addEventListener("click", function() {
-  document.getElementById("lotForm").style.display = "block";
-});
-
-document.getElementById("addForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  var entreprise = document.getElementById("entrepriseInput").value;
-  var htva = document.getElementById("htvaInput").value;
-  var classement = document.getElementById("classementInput").value;
-
-  var lotTable = document.getElementById("lotTable" + lotCount);
-  
-  var cell1 = newRow.insertCell(0);
-  var cell2 = newRow.insertCell(1);
-  var cell3 = newRow.insertCell(2);
-  var cell4 = newRow.insertCell(3);
-  var cell5 = newRow.insertCell(4);
-
-
-  cell1.innerHTML = entreprise;
-  cell2.innerHTML = htva;
-  cell3.innerHTML = classement;
-  cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-  cell5.innerHTML = '<button class="editButton">Modifier</button>';
-  
-
-  attachDeleteEvent();
-  attachEditEvent();
-
-  document.getElementById("entrepriseInput").value = "";
-  document.getElementById("htvaInput").value = "";
-  document.getElementById("classementInput").value = "";
-});
-
-function attachDeleteEvent() {
-  var deleteButtons = document.getElementsByClassName("deleteButton");
-
-  for (var i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener("click", function() {
-      if (confirm("Êtes-vous sûr de vouloir supprimer ce lot ?")) {
-        var row = this.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-      }
-    });
-  }
+function goToPage2() {
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+  addTable();
 }
 
-function attachEditEvent() {
-  var editButtons = document.getElementsByClassName("editButton");
-
-  for (var i = 0; i < editButtons.length; i++) {
-    editButtons[i].addEventListener("click", function() {
-      var row = this.parentNode.parentNode;
-      var cells = row.cells;
-
-      document.getElementById("entrepriseInput").value = cells[0].innerHTML;
-      document.getElementById("htvaInput").value = cells[1].innerHTML;
-      document.getElementById("classementInput").value = cells[2].innerHTML;
-
-      document.getElementById("lotForm").style.display = "block";
-    });
-  }
+function addRow(tableId) {
+  const table = document.getElementById(tableId);
+  const row = table.insertRow();
+  row.innerHTML = `
+    <td><input type="text" name="entreprise_${tableIndex}"></td>
+    <td><input type="number" name="montant_${tableIndex}"></td>
+    <td><input type="text" name="classement_${tableIndex}"></td>
+    <td>
+      <button onclick="modifyRow(this)">Modifier</button>
+      <button onclick="deleteRow(this)">Supprimer</button>
+    </td>
+  `;
+  tableIndex++;
 }
 
-document.getElementById("averageButton").addEventListener("click", function() {
-  var rows = document.getElementById("lotTable").rows;
-  var sum = 0;
+function calculateAverage(tableId) {
+  const table = document.getElementById(tableId);
+  const rows = table.getElementsByTagName("tr");
+  let total = 0;
+  let count = 0;
 
-  for (var i = 1; i < rows.length; i++) {
-    var htva = parseFloat(rows[i].cells[1].innerHTML);
-
-    if (!isNaN(htva)) {
-      sum += htva;
-    }
-  }
-
-  var average = sum / (rows.length - 1);
-  alert("Moyenne HTVA : " + average.toFixed(2));
-});
-
-var lotCount = 1;
-
-document.getElementById("addLotButton").addEventListener("click", function() {
-  if (lotCount >= 10) {
-    alert("Vous avez atteint le nombre maximum de lots.");
-    return;
-  }
-
-  lotCount++;
-
-  var interface2 = document.getElementById("interface2");
-
-  var newLot = document.createElement("div");
-  newLot.id = "lot" + lotCount;
-
-  var lotHeading = document.createElement("h2");
-  lotHeading.textContent = "Lot numéro " + lotCount;
-  newLot.appendChild(lotHeading);
-
-  var lotTable = document.createElement("table");
-  lotTable.id = "lotTable" + lotCount;
-  var tableHeader = document.createElement("tr");
-  tableHeader.innerHTML = "<th>Entreprise</th><th>Montant HTVA</th><th>Classement</th>";
-  lotTable.appendChild(tableHeader);
-  newLot.appendChild(lotTable);
-
-  var addButton = document.createElement("button");
-  addButton.id = "addButton" + lotCount;
-  addButton.textContent = "Ajouter une Entreprise";
-  newLot.appendChild(addButton);
-
-  var averageButton = document.createElement("button");
-  averageButton.id = "averageButton" + lotCount;
-  averageButton.textContent = "Calculer la moyenne des offres";
-  newLot.appendChild(averageButton);
-
-  interface2.appendChild(newLot);
-
-  attachAddEvent(lotCount);
-  attachAverageEvent(lotCount);
-});
-
-function attachAddEvent(lotCount) {
-  var addButton = document.getElementById("addButton" + lotCount);
-  addButton.addEventListener("click", function() {
-    var lotTable = document.getElementById("lotTable" + lotCount);
-    var newRow = lotTable.insertRow();
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
-    var cell4 = newRow.insertCell(3);
-    var cell5 = newRow.insertCell(4);
-
-    cell1.innerHTML = document.getElementById("entrepriseInput").value;
-    cell2.innerHTML = document.getElementById("htvaInput").value;
-    cell3.innerHTML = document.getElementById("classementInput").value;
-    cell4.innerHTML = '<button class="deleteButton">Supprimer</button>';
-    cell5.innerHTML = '<button class="editButton">Modifier</button>';
-
-    attachDeleteEvent();
-    attachEditEvent();
-
-    document.getElementById("entrepriseInput").value = "";
-    document.getElementById("htvaInput").value = "";
-    document.getElementById("classementInput").value = "";
-    document.getElementById("lotForm").style.display = "none";
-  });
-}
-
-function attachAverageEvent(lotCount) {
-  var averageButton = document.getElementById("averageButton" + lotCount);
-  averageButton.addEventListener("click", function() {
-    var lotTable = document.getElementById("lotTable" + lotCount);
-    var rows = lotTable.rows;
-    var sum = 0;
-
-    for (var i = 1; i < rows.length; i++) {
-      var htva = parseFloat(rows[i].cells[1].innerHTML);
-
-      if (!isNaN(htva)) {
-        sum += htva;
+  // Skip the first row (table header)
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    if (cells.length >= 2) {
+      const montantInput = cells[1].querySelector("input[name^='montant_']");
+      if (montantInput && montantInput.value !== "") {
+        total += parseFloat(montantInput.value);
+        count++;
       }
     }
+  }
 
-    var average = sum / (rows.length - 1);
-    alert("Moyenne HTVA pour le lot " + lotCount + ": " + average.toFixed(2));
-  });
+  if (count > 0) {
+    const average = total / count;
+    alert(`La moyenne des montants HTVA dans cette table est: ${average}`);
+  } else {
+    alert("Aucun montant HTVA n'a été saisi dans cette table.");
+  }
 }
 
-attachDeleteEvent();
-attachEditEvent();
+function addTable() {
+  const tableContainer = document.getElementById("table-container");
+  const table = document.createElement("table");
+  const newTableIndex = tableIndex;
+  table.id = `data-table-${newTableIndex}`;
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `
+    <th>Entreprise</th>
+    <th>Montant HTVA</th>
+    <th>Classement</th>
+    <th>Action</th>
+  `;
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  table.appendChild(tbody);
+
+  tableContainer.appendChild(table);
+
+  const tableHeading = document.createElement("h1");
+  tableHeading.textContent = `Lot numéro ${newTableIndex}`;
+  tableContainer.insertBefore(tableHeading, table);
+
+  const addRowButton = document.createElement("button");
+  addRowButton.innerHTML = "Ajouter une Entreprise";
+  addRowButton.onclick = function () {
+    addRow(`data-table-${newTableIndex}`);
+  };
+  tableContainer.appendChild(addRowButton);
+
+  const calculateAverageButton = document.createElement("button");
+  calculateAverageButton.innerHTML = "Calculer la moyenne";
+  calculateAverageButton.onclick = function () {
+    calculateAverage(`data-table-${newTableIndex}`);
+  };
+  tableContainer.appendChild(calculateAverageButton);
+
+  addRow(`data-table-${newTableIndex}`);
+}
+
+function modifyRow(button) {
+  const row = button.parentNode.parentNode;
+  const inputs = row.getElementsByTagName("input");
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].removeAttribute("readonly");
+  }
+  button.innerHTML = "Sauvegarder";
+  button.onclick = function () {
+    saveRow(this);
+  };
+}
+
+function saveRow(button) {
+  const row = button.parentNode.parentNode;
+  const inputs = row.getElementsByTagName("input");
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].setAttribute("readonly", true);
+  }
+  button.innerHTML = "Modifier";
+  button.onclick = function () {
+    modifyRow(this);
+  };
+}
+
+function deleteRow(button) {
+  const row = button.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
+function generateBestScenario() {
+  document.getElementById("page2").style.display = "none";
+  document.getElementById("page3").style.display = "block";
+  const scenarioTableContainer = document.getElementById("scenario-table-container");
+  scenarioTableContainer.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>N° du lot</th>
+          <th>Entreprises</th>
+          <th>Mt HTVA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lot n°1</td>
+          <td>Olive</td>
+          <td>200 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°2</td>
+          <td>Pepper Event</td>
+          <td>211 200,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°3</td>
+          <td>Pepper Events</td>
+          <td>67 250,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°4</td>
+          <td>Tulip Event</td>
+          <td>96 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°5</td>
+          <td>Tulip Event</td>
+          <td>70 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°6</td>
+          <td>Prod'un jour</td>
+          <td>81 600,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°7</td>
+          <td>Olive</td>
+          <td>80 000,000</td>
+        </tr>
+        <tr>
+          <td>Lot n°8</td>
+          <td>Prod'un jour</td>
+          <td>101 200,000</td>
+        </tr>
+        <tr>
+          <td>TOTAL HTVA</td>
+          <td></td>
+          <td>907 250,000</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+
+
+
+
+
+
 

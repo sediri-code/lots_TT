@@ -5,42 +5,53 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div id="interface1">
-    <h1>Bienvenue !</h1>
-    <button id="insertButton">Insérer les données des lots</button>
+
+  <div id="page1">
+    <div class="container">
+      <h1>Bienvenue</h1>
+      <button onclick="goToPage2()">Insérer les données</button>
+    </div>
+    <img src="https://www.jawharafm.net/fr/imageResize/resize/francais_image2_35665_1458124719.png" alt="Image description" id="smallImage">
+  </div>
+  
+  
+  <div id="page2" style="display: none;">
+    <div id="table-container">
+      <thead>
+        <tr>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </div>
+    <button onclick="addTable()">Ajouter un autre lot</button>
+    <button onclick="generateBestScenario()">Générer le meilleur scénario</button>
+
   </div>
 
-  <div id="interface2" style="display: none;">
-    <h2 id="lotNumber">Lot numéro 1</h2>
-    <table id="lotTable">
-      <tr>
-        <th>Entreprise</th>
-        <th>Montant HTVA</th>
-        <th>Classement</th>
-      </tr>
-    </table>
-    <br>
-    <button id="addButton">Ajouter une Entreprise</button>
-    <button id="averageButton">Calculer la moyenne des offres</button>
-    <button id="addLotButton">Ajouter un autre lot</button>
+  <div id="page3" style="display: none;">
+    <h1 class="centered-heading">Le Scénario retenu:</h1>
+    <div id="scenario-table-container">
+      <!-- The generated scenario table will be inserted here -->
+    </div>
+
   </div>
 
-  <div id="lotForm" style="display: none;">
-    <h3>Ajouter une Entreprise</h3>
-    <form id="addForm">
-      <label for="entrepriseInput">Entreprise:</label>
-      <input type="text" id="entrepriseInput" required><br>
-
-      <label for="htvaInput">HTVA:</label>
-      <input type="number" id="htvaInput" required><br>
-
-      <label for="classementInput">Classement:</label>
-      <input type="text" id="classementInput" required><br>
-
-      <input type="submit" value="Ajouter">
-    </form>
-  </div>
 
   <script src="script.js"></script>
+  <script>
+  // Check if the login container exists in the DOM
+  const loginContainer = document.getElementById("login-container");
+  if (loginContainer) {
+    // Remove the login container from the DOM
+    loginContainer.remove();
+  }
+</script>
+
 </body>
 </html>
+
+
+
+
+
+
