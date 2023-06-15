@@ -82,3 +82,10 @@ h1 {
   background-color: #ffffff; /* White background color */
 }
 
+#smallImage {
+  width: 200px; /* Adjust the desired width */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
