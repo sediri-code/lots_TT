@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
   <title>Tunisie Telecom</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -8,12 +9,17 @@
 
   <div id="page1">
     <div class="container">
-      <h1>Bienvenue</h1>
+      <h1 class="heading">Application du choix de fournisseur selon le scénario moindre coût</h1>
+
       <button onclick="goToPage2()">Insérer les données</button>
     </div>
-    <img src="https://www.jawharafm.net/fr/imageResize/resize/francais_image2_35665_1458124719.png" alt="Image description" id="smallImage">
+    <div id="logo">
+      <img src="https://www.1min30.com/wp-content/uploads/2019/03/Tunisie-Telecom.jpg" alt="Logo">
+    </div>
+    
   </div>
   
+
   
   <div id="page2" style="display: none;">
     <div id="table-container">
@@ -25,6 +31,8 @@
     </div>
     <button onclick="addTable()">Ajouter un autre lot</button>
     <button onclick="generateBestScenario()">Générer le meilleur scénario</button>
+    <button onclick="deleteTable()">Supprimer le lot</button>
+
 
   </div>
 
@@ -49,7 +57,6 @@
 
 </body>
 </html>
-
 
 
 

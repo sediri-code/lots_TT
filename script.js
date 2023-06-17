@@ -46,6 +46,17 @@ function calculateAverage(tableId) {
     alert("Aucun montant HTVA n'a été saisi dans cette table.");
   }
 }
+function deleteTable(tableId) {
+  const tableContainer = document.getElementById("table-container");
+  const table = document.getElementById(tableId);
+  const tableHeading = document.querySelector(`h1[data-lot="${tableId}"]`);
+
+  if (table && tableHeading) {
+    tableContainer.removeChild(table);
+    tableContainer.removeChild(tableHeading);
+  }
+}
+
 
 function addTable() {
   const tableContainer = document.getElementById("table-container");
@@ -119,6 +130,25 @@ function deleteRow(button) {
   row.parentNode.removeChild(row);
 }
 
+function deleteLot(lotIndex) {
+  const tableContainer = document.getElementById("table-container");
+  const lotId = `data-table-${lotIndex}`;
+  const lot = document.getElementById(lotId);
+  const tableHeading = document.querySelector(`h1[data-lot="${lotId}"]`);
+
+  if (lot && tableHeading) {
+    tableContainer.removeChild(tableHeading);
+
+    while (lot.firstChild) {
+      lot.removeChild(lot.firstChild);
+    }
+
+    tableContainer.removeChild(lot);
+  }
+}
+
+
+
 function generateBestScenario() {
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "block";
@@ -182,6 +212,11 @@ function generateBestScenario() {
     </table>
   `;
 }
+
+
+
+
+
 
 
 

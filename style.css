@@ -89,3 +89,77 @@ h1 {
   left: 0;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+#page1 {
+  flex-direction: column;
+  
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  background-image: url('https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg');
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #fffbfb;
+  margin: 10;
+  line-height: 1.6;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#smallImage {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+#logo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#logo img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
