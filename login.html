@@ -1,21 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login Page</title>
-  <link rel="stylesheet" type="text/css" href="login.css">
+  
+  <title>Tunisie Telecom</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
 </head>
+
+
 <body>
-  <div class="login-container">
-    <h1>Connexion</h1>
-    <form id="login-form">
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+  <div id="page1" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100vh;">
+    <div class="container">
+      <h1 class="heading" style="color:white;">Application du choix de fournisseur selon le scénario moindre coût</h1>
+
+      <button onclick="goToPage2()">Insérer les données</button>
+    </div>
+    <div id="logo">
+      <img src="https://www.1min30.com/wp-content/uploads/2019/03/Tunisie-Telecom.jpg" alt="Logo">
+    </div>
   </div>
-  <div id="logo">
-    <img src="https://www.1min30.com/wp-content/uploads/2019/03/Tunisie-Telecom.jpg" alt="Logo">
+    
   </div>
   
-  <script src="login.js"></script>
+
+  
+  <div id="page2" style="display: none;">
+    <div id="table-container">
+      <thead>
+        <tr>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </div>
+    <button onclick="addTable()">Ajouter un autre lot</button>
+    <button onclick="generateBestScenario()">Générer le meilleur scénario</button>
+    <button onclick="deleteTable()">Supprimer le lot</button>
+
+
+  </div>
+
+  <div id="page3" style="display: none;">
+    <h1 class="centered-heading">Le Scénario retenu:</h1>
+    <div id="scenario-table-container">
+      <!-- The generated scenario table will be inserted here -->
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+  <script>
+  // Check if the login container exists in the DOM
+  const loginContainer = document.getElementById("login-container");
+  if (loginContainer) {
+    // Remove the login container from the DOM
+    loginContainer.remove();
+  }
+</script>
+
 </body>
+</html>
