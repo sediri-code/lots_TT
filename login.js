@@ -19,3 +19,10 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     alert("Invalid username or password");
   }
 });
+
+
+/* function goToPage1() {
+  document.getElementById("page0").style.display = "none";
+  document.getElementById("page1").style.display = "block";
+  addTable();
+} */
