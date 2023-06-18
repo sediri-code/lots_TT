@@ -47,7 +47,10 @@ function calculateAverage(tableId) {
   }
 }
 
+
+
 function addTable() {
+  
   const tableContainer = document.getElementById("table-container");
   const table = document.createElement("table");
   const newTableIndex = tableIndex;
@@ -88,7 +91,37 @@ function addTable() {
   tableContainer.appendChild(calculateAverageButton);
 
   addRow(`data-table-${newTableIndex}`);
+
 }
+
+function deleteTable() {
+  const tableContainer = document.getElementById("table-container");
+  const tables = tableContainer.getElementsByTagName("table");
+
+  if (tables.length > 0) {
+    const lastTable = tables[tables.length - 1];
+    const tableHeading = lastTable.previousElementSibling;
+    const buttons = tableContainer.querySelectorAll("button");
+
+    tableContainer.removeChild(tableHeading);
+    tableContainer.removeChild(lastTable);
+
+    for (let i = buttons.length - 1; i >= 0; i--) {
+      const button = buttons[i];
+      tableContainer.removeChild(button);
+    }
+
+    console.log("Last lot, table, and buttons deleted!");
+  } else {
+    console.log("No lot, table, and buttons to delete.");
+  }
+}
+
+
+
+
+
+
 
 function modifyRow(button) {
   const row = button.parentNode.parentNode;
@@ -118,6 +151,25 @@ function deleteRow(button) {
   const row = button.parentNode.parentNode;
   row.parentNode.removeChild(row);
 }
+
+function deleteLot(lotIndex) {
+  const tableContainer = document.getElementById("table-container");
+  const lotId = `data-table-${lotIndex}`;
+  const lot = document.getElementById(lotId);
+  const tableHeading = document.querySelector(`h1[data-lot="${lotId}"]`);
+
+  if (lot && tableHeading) {
+    tableContainer.removeChild(tableHeading);
+
+    while (lot.firstChild) {
+      lot.removeChild(lot.firstChild);
+    }
+
+    tableContainer.removeChild(lot);
+  }
+}
+
+
 
 function generateBestScenario() {
   document.getElementById("page2").style.display = "none";
@@ -182,6 +234,11 @@ function generateBestScenario() {
     </table>
   `;
 }
+
+
+
+
+
 
 
 

@@ -54,10 +54,6 @@ button {
   cursor: pointer;
 }
 
-#table-container button:last-child {
-  margin-right: 0; /* Remove right margin for the last button */
-}
-
 
 button:hover {
   background-color: #0077B3; /* Darker blue hover color */
@@ -68,19 +64,13 @@ h1 {
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #e8e2e2;
+  text-align:center;
 }
 
-.centered-heading {
-  text-align: center;
-  margin-top: 20px;
-}
 
-#page1 {
-  padding: 20px;
-  text-align: center;
-  background-color: #ffffff; /* White background color */
-}
+
+
 
 #smallImage {
   width: 200px; /* Adjust the desired width */
@@ -89,3 +79,70 @@ h1 {
   left: 0;
 }
 
+
+
+#page1 {
+  flex-direction: column;
+  
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  background-image: url('https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg');
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 48px; 
+  color: #0d0d0d;
+  margin: 30px; /* Add a top margin of 10px and remove the default margin on the sides */
+  line-height: 1.6;
+  font-weight: 600; /* Increase the font weight for a bolder appearance */
+  font-family: Arial, sans-serif;
+}
+
+
+button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #1378dc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#smallImage {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+#logo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#logo img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
