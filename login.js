@@ -12,7 +12,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
   // Check if entered credentials match the valid ones
   if (username === validUsername && password === validPassword) {
     // Redirect to the welcome page or perform any desired action
-    window.location.replace("index.html");
+    window.location.replace("login.html");
   
   } else {
     // Display an error message or perform any desired action
